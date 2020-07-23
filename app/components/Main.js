@@ -12,7 +12,22 @@ export class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>TO DO APP</Text>
+        {/* HEADER */}
+        <View style={styles.header}>
+          <Text style={styles.hText}> ~~ TO DO APP ~~</Text>
+        </View>
+
+        {/* BODY WEHRE YOUR LIST IS */}
+        <ScrollView style={styles.scrollContainer}></ScrollView>
+
+        {/* FOOTER */}
+        <View style={styles.footer}>
+          <TextInput
+            style={style.textInput}
+            placeholder='ADD TASK HERE'
+            placeholderTextColor='white'
+            underlineColorAndroid='transparent'></TextInput>
+        </View>
       </View>
     );
   }
