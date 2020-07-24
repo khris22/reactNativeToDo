@@ -28,6 +28,11 @@ export class Main extends Component {
             placeholderTextColor='white'
             underlineColorAndroid='transparent'></TextInput>
         </View>
+
+        {/* Add Button */}
+        <TouchableOpacity style={styles.addButton}>
+          <Text style={styles.addButtonText}>+</Text>
+        </TouchableOpacity>
       </View>
     );
   }
