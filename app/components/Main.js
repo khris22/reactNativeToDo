@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Note from './Note';
 import {
   StyleSheet,
   Text,
@@ -9,7 +10,26 @@ import {
 } from 'react-native';
 
 export class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      noteArray: [],
+      noteText: '',
+    };
+  }
+
   render() {
+    const notes = this.state.noteArray.map((val, key) => {
+      return (
+        <Note
+          key={key}
+          keyval={key}
+          val={val}
+          deleteMethod={() => this.deleteNote(key)}
+        />
+      );
+    });
+
     return (
       <View style={styles.container}>
         {/* HEADER */}
@@ -18,23 +38,44 @@ export class Main extends Component {
         </View>
 
         {/* BODY WEHRE YOUR LIST IS */}
-        <ScrollView style={styles.scrollContainer}></ScrollView>
+        <ScrollView style={styles.scrollContainer}>{notes}</ScrollView>
 
         {/* FOOTER */}
         <View style={styles.footer}>
           <TextInput
             style={styles.textInput}
+            onChangeText={(noteText) => this.setState({ noteText })}
+            value={this.state.noteText}
             placeholder='ADD TASK HERE'
             placeholderTextColor='white'
             underlineColorAndroid='transparent'></TextInput>
         </View>
 
         {/* Add Button */}
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={this.addNote.bind(this)}>
           <Text style={styles.addButtonText}>+</Text>
         </TouchableOpacity>
       </View>
     );
+  }
+  addNote() {
+    // alert('test')
+    if (this.state.noText) {
+      const d = new Date();
+      this.state.noteArray.push({
+        date: d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate(),
+        note: this.state.noteText,
+      });
+      this.setState({ noteArray: this.state.noteArray });
+      this.setState({ noteText: '' });
+    }
+  }
+
+  deleteNote(key) {
+    this.state.noteArray.splice(key, 1);
+    this.setState({ noteArray: this.state.noteArray });
   }
 }
 
