@@ -41,9 +41,9 @@ export class Main extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#a8e6cf',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // backgroundColor: '#a8e6cf',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   header: {
     backgroundColor: '#dcedc1',
