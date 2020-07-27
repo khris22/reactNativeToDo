@@ -7,6 +7,7 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 export class Main extends Component {
@@ -19,7 +20,7 @@ export class Main extends Component {
   }
 
   render() {
-    const notes = this.state.noteArray.map((val, key) => {
+    let notes = this.state.noteArray.map((val, key) => {
       return (
         <Note
           key={key}
@@ -41,7 +42,10 @@ export class Main extends Component {
         <ScrollView style={styles.scrollContainer}>{notes}</ScrollView>
 
         {/* FOOTER */}
-        <View style={styles.footer}>
+        {/* <KeyboardAvoidingView style={styles.footer}> */}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : null}
+          style={styles.footer}>
           <TextInput
             style={styles.textInput}
             onChangeText={(noteText) => this.setState({ noteText })}
@@ -49,21 +53,21 @@ export class Main extends Component {
             placeholder='ADD TASK HERE'
             placeholderTextColor='white'
             underlineColorAndroid='transparent'></TextInput>
-        </View>
+        </KeyboardAvoidingView>
 
         {/* Add Button */}
         <TouchableOpacity
-          style={styles.addButton}
-          onPress={this.addNote.bind(this)}>
+          onPress={this.addNote.bind(this)}
+          style={styles.addButton}>
           <Text style={styles.addButtonText}>+</Text>
         </TouchableOpacity>
       </View>
     );
   }
   addNote() {
-    // alert('test')
-    if (this.state.noText) {
-      const d = new Date();
+    // alert('test');
+    if (this.state.noteText) {
+      var d = new Date();
       this.state.noteArray.push({
         date: d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate(),
         note: this.state.noteText,
@@ -89,12 +93,12 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#dcedc1',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     borderBottomWidth: 10,
     borderBottomColor: '#ffd3b6',
   },
   hText: {
-    color: 'white',
+    color: 'gray',
     fontSize: 20,
     padding: 26,
   },
@@ -103,6 +107,7 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   footer: {
+    flex: 1,
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   addButtonText: {
-    color: '#5e5656',
+    color: '#fff',
     fontSize: 24,
   },
 });
